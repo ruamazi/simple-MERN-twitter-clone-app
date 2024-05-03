@@ -1,5 +1,6 @@
 import expreess from "express";
 import "dotenv/config";
+import path from "path";
 import connectDB from "./db/connectDb.js";
 import cookieParser from "cookie-parser";
 import authRouters from "./routes/authRoutes.js";
@@ -19,6 +20,7 @@ const PORT = process.env.PORT || 3030;
 const app = expreess();
 app.use(expreess.json({ limit: "3mb" }));
 app.use(cookieParser());
+const __dirname = path.resolve();
 
 app.get("/api", (req, res) => {
   res.json({ message: "Welcome to Twitter clone API" });
@@ -28,6 +30,12 @@ app.use("/api/auth", authRouters);
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/notif", notificationRoutes);
+if (process.env.NODE_ENV === "production") {
+  app.use(expreess.static(path.join(__dirname, "/client/dist")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
+  });
+}
 
 app.listen(PORT, () => {
   connectDB();
