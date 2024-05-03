@@ -162,7 +162,11 @@ const Profile = ({ currentUser }) => {
                 {(coverImg || profileImg) && (
                   <button
                     className="btn btn-primary rounded-full btn-sm text-white px-4 ml-2"
-                    onClick={() => updateUserProfile({ profileImg, coverImg })}
+                    onClick={async () => {
+                      await updateUserProfile({ profileImg, coverImg });
+                      setProfileImg(null);
+                      setCoverImg(null);
+                    }}
                   >
                     {updating ? "Saving..." : "Save"}
                   </button>
