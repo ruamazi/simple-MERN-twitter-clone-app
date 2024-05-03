@@ -15,7 +15,7 @@ cloudinary.config({
   api_secret: process.env.CLOUD_SEC,
 });
 
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 5000;
 
 const app = expreess();
 app.use(expreess.json({ limit: "3mb" }));
