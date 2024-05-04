@@ -16,7 +16,7 @@ cloudinary.config({
 });
 
 const app = express();
-const PORT = 3030;
+const PORT = process.env.PORT || 3030 || 5010;
 const __dirname = path.resolve();
 
 app.use(express.json({ limit: "3mb" }));
