@@ -13,7 +13,7 @@ export const uploadImg = async (img) => {
   const uploadOptions = {
     resource_type: "image",
     folder: "uploads",
-    allowed_formats: ["jpg", "jpeg", "png", "gif"],
+    allowed_formats: ["jpg", "jpeg", "png", "gif", "webp"],
     max_allowed_file_size: 3 * 1024 * 1024, //3MB
   };
   try {
