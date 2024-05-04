@@ -16,7 +16,7 @@ cloudinary.config({
 });
 
 const app = express();
-const PORT = process.env.PORT || 3030 || 5010;
+const PORT = process.env.PORT || 3030;
 const __dirname = path.resolve();
 
 app.use(express.json({ limit: "3mb" }));
@@ -31,10 +31,12 @@ app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/notif", notificationRoutes);
 
-app.use(express.static(path.join(__dirname, "/client/dist")));
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
-});
+if (process.env.NODE_ENV !== "dev") {
+  app.use(express.static(path.join(__dirname, "/client/dist")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
+  });
+}
 
 app.listen(PORT, () => {
   connectDB();
